@@ -1,0 +1,14 @@
+# Ignore the target folderwhere build artifacts are stored
+/target/
+
+# Ignore the pkg directory that will be created by wasm-ack
+/pkg/
+
+# Ignore backup files created by some editors
+**/*.rs.bk
+
+# Ignore macOS-specific system files
+.DS_Store
+
+# Ignore node_modules if you have Node.js dependencies (you might add this later)
+/node_modules/
