@@ -1,5 +1,10 @@
 # Ignore the target folderwhere build artifacts are stored
 /target/
+/backend/target/
+/foreground-script/target/
+/background-script/target/
+/messages/target/
+
 
 # Ignore the pkg directory that will be created by wasm-ack
 /pkg/
@@ -12,3 +17,6 @@
 
 # Ignore node_modules if you have Node.js dependencies (you might add this later)
 /node_modules/
+
+#Ignore the file about terminal
+/terminal_commands.txt

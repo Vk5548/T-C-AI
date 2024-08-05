@@ -1,0 +1,23 @@
+[package]
+name = "background-script"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+# Project dependencies
+messages = { path = "../messages"}
+
+# External dependencies
+gloo-console = "0.3.0" 
+gloo-timers = { version = "0.3.0", features = ["futures"] }
+gloo-utils = "0.2.0" 
+js-sys = "0.3.69" # Update to latest
+serde = { version = "1.0.204", features = ["derive"] } # Update to latest
+thiserror = "1.0.38" # Update to latest
+wasm-bindgen = "0.2.92" # Update to latest
+wasm-bindgen-futures = "0.4.42" # Update to latest
+web-extensions-sys = "0.4.1" # Update to latest
