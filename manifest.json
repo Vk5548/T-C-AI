@@ -3,8 +3,8 @@
     "name": "T&C-AI",
     "version": "1.0",
     "background": {
-        "service_worker": "./background-script/pkg/background_script.js",
-        "persistent": true
+        "service_worker": "./background.js",
+        "type": "module"
     },
     "description": "A Chrome extension to parse and analyze terms and conditions.",
     "permissions": [
@@ -16,7 +16,7 @@
         "https://*/*"
     ],
     "content_security_policy": {
-        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src *"
     },
     "content_scripts": [
         {
@@ -24,15 +24,15 @@
                 "<all_urls>"
             ],
             "js": [
-                "./foreground-script/pkg/foreground_script.js"
+                "content.js"
             ]
         }
     ],
     "web_accessible_resources": [
         {
             "resources": [
-                "background-script/pkg/*.wasm",
-                "foreground-script/pkg/*.wasm"
+                "pkg/t_c_ai_bg.wasm",
+                "pkg/t_c_ai.js"
             ],
             "matches": [
                 "<all_urls>",

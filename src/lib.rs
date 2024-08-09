@@ -1,25 +1,27 @@
-// This imports all the necessary items from the wasm-bindgen crate.
-// The prelude module is a convenience module that brings in everything
-// you need to start using wasm-bindgen easily.
+use actix_web::{web, HttpResponse};
+use serde::{Deserialize, Serialize};
 
-use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
-pub fn parse_terms(terms: &str) -> String {
-    format!("the hell is here {} ", terms)
+// Struct to represent the incoming request data
+#[derive(Deserialize)]
+pub struct TermsData {
+    pub terms: String,
 }
 
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+// Struct to represent the response data
+#[derive(Serialize)]
+pub struct AnalysisResult {
+    pub summary: String,
+    pub flags: Vec<String>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+// Core function to handle the analysis
+pub async fn analyze_terms(terms: web::Json<TermsData>) -> HttpResponse {
+    // Here you would integrate with Meta's LLaMA 3.1 model for actual AI processing
+    let summary = "This is a summary of the terms"; // Example summary
+    let flags = vec!["skeptical point 1".to_string(), "beneficial point 1".to_string()]; // Example flags
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+    let result = AnalysisResult { summary: summary.to_string(), flags };
+
+    HttpResponse::Ok().json(result)
 }
