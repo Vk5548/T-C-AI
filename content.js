@@ -1,11 +1,21 @@
 console.log("Content Script running");
 
+//send a message to the background script
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "extractTerms") {
+        const termsText = extractTermsAndConditions();
+        console.log("Extracted terms:", termsText);
+        sendResponse({ terms: termsText });
+    }
+});
+
+
 function extractTermsAndConditions() {
     //look for elemnets that may have terms and conditions
     const possibleKeywords = /terms|conditions|privacy|agreement|policy/i;
     let termsText = "";
 
-    // Search for headings that may indicate the start of the terms section
+
     // Search for headings that may indicate the start of the terms section
     const headings = Array.from(document.querySelectorAll('h1, h2, h3, h4, h5, h6'));
     headings.forEach(heading => {
@@ -28,16 +38,5 @@ function extractTermsAndConditions() {
             }
         });
     }
-    console.log("if i got somethibg: ", termsText);
     return termsText || "Terms and Conditions section not found.";
 }
-//send a message to the background script
-chrome.runtime.sendMessage(
-    {
-        action: "analyzeTerms",
-        terms: extractTermsAndConditions() // For now, it will give the content of the whole page,
-    },
-    (response) => {
-        console.log("Analysis result:", response.result);
-    }
-);
